@@ -34,9 +34,6 @@ def validator_num(input_text):
             print("Invalid Input! Try again...")
 
 
-
-
-
 class Hero:
     def __init__(self, name, health = 100):
         self.abilities = list()
@@ -206,20 +203,20 @@ class Arena(Hero, Team):
     def build_abilities_list(self):
         # Return an ability and append ability
         abilities = [
-            "Alien Attack",
-            "Science",
-            "Star Power",
-            "Immortality",
-            "Grandmas Cookies",
-            "Blinding Strength",
-            "Cute Kittens",
-            "Team Morale",
-            "Luck",
-            "Obsequious Destruction",
-            "The Kraken",
-            "The Fire of A Million Suns",
-            "Team Spirit",
-            "Canada"]
+            "Spinning Bird Kick",
+            "Flashbang",
+            "Dazzle",
+            "Invulnerability",
+            "BAMF!",
+            "Telekenisis",
+            "Rain of Frogs",
+            "Pym Particles",
+            "Super Stretchy",
+            "Lava Hands",
+            "Multiplicity",
+            "One Inch Punch",
+            "Assumed Superiority",
+            "Hella Henchmen"]
         # Get one abilitiy out of the list
         index = random.randint(0, len(abilities) - 1)
         ability_name = abilities[index]
@@ -230,20 +227,20 @@ class Arena(Hero, Team):
 
     def build_armors_list(self):
         armors = [
-            "Calculator",
-            "Laser Shield",
+            "Chain Mail",
+            "Forcefield",
+            "Energy Absorption",
+            "Woad",
+            "Riot Gear",
+            "Sun Hat",
+            "Turtle Shell",
+            "Kevlar Suit",
             "Invisibility",
-            "SFPD Strike Force",
-            "Social Workers",
-            "Face Paint",
-            "Damaskus Shield",
-            "Bamboo Wall",
-            "Forced Projection",
-            "Thick Fog",
-            "Wall of Will",
-            "Wall of Walls",
-            "Obamacare",
-            "Thick Goo"]
+            "Skunk Power",
+            "Battle Suit",
+            "Jockstrap",
+            "Ion Shield",
+            "Shroud of Mystery"]
         # Get one armor out of the list
         index = random.randint(0, len(armors) - 1)
         armor_name = armors[index]
@@ -253,29 +250,29 @@ class Arena(Hero, Team):
 
     def create_hero(self):
         heroes = [
-            "Athena",
-            "Jodie Foster",
-            "Wonder Woman",
-            "Christina Aguilera",
-            "Gamora",
-            "Supergirl",
-            "Batgirl",
-            "Carmen Sandiego",
-            "Okoye",
-            "America Chavez",
-            "Cat Woman",
-            "White Canary",
-            "Nakia",
-            "Mera",
-            "Iris West",
-            "Quake",
-            "Wasp",
-            "Storm",
+            "Captain Planet",
+            "Colin Kaepernick",
+            "Optimus Prime",
+            "Harriet Tubman",
+            "Frankenstein",
+            "Animal Man",
+            "Johnny Alpha",
+            "Durham Red",
+            "Nikolai Dante",
+            "Banana Man",
             "Black Widow",
-            "San Luis Obispo",
-            "Ted Kennedy",
-            "San Francisco",
-            "Bananas"]
+            "Cable",
+            "Deadpool",
+            "Namor",
+            "Wolverine",
+            "Jubilee",
+            "Elektra",
+            "Hulk",
+            "Moon Knight",
+            "Future Man",
+            "Avatar Korra",
+            "Desperate Dan",
+            "Nightcrawler"]
         index = random.randint(0, len(heroes) - 1)
         hero_name = heroes[index]
         hero = Hero(hero_name)
@@ -292,3 +289,103 @@ class Arena(Hero, Team):
             hero.add_armor(self.build_armors_list())
         print(hero.armors)
         return hero
+
+
+def build_team_one(self):
+    
+        print("Welcome to the Proving Ground:")
+        print("   Where two teams enter, and only one team leaves")
+
+        team_name = input("Name your team Human! ")
+
+        self.team_one = Team(team_name)
+        choosing_Team_Size = True
+        while choosing_Team_Size:
+            hero_number = validator(["Yes","yes","y", "Y", "No", "no", "n", "N"],"Do you want to add a hero? (Y/N)")
+            # every time I create a hero apppend that hero to the team
+            if hero_number == "Yes" or hero_number == "yes" or hero_number == "y" or hero_number == "Y":
+                self.team_one.add_hero(self.create_hero())
+                print(self.team_one.heroes)
+            else:
+                choosing_Team_Size = False
+
+        # print("This is Team 1 list of heroes: {}.".format(team_one.heroes))
+
+def build_team_two(self):
+
+        print("\n")
+        print("Build Team 2!")
+        team_name = input("Name your team Human! ")
+
+        self.team_two = Team(team_name)
+        choosing_Team2_Size = True
+        while choosing_Team2_Size:
+            hero_number = validator(["Yes","yes","y", "Y", "No", "no", "n", "N"],"Do you want to add a hero? (Y/N)")
+            # every time I create a hero apppend that hero to the team
+            if hero_number == "Yes" or hero_number ==  "yes" or hero_number == "y" or hero_number == "Y" :
+                self.team_two.add_hero(self.create_hero())
+                print(self.team_two.heroes)
+            else:
+                choosing_Team2_Size = False
+
+
+def team_battle(self):
+        """
+        This method should continue to battle teams until one or both teams are dead.
+        """
+        print("\n")
+        print("{} vs. {}".format(self.team_one.name, self.team_two.name))
+        in_battle = True
+
+        while in_battle:
+            if self.team_one.attack(self.team_two) == len(self.team_two.heroes):
+                print("Team 1 Wins!!")
+                in_battle = False
+            else:
+                if self.team_two.attack(self.team_one) == len(self.team_one.heroes):
+                    print("Team 2 Wins!!")
+                    in_battle = False
+                else:
+                    continue
+
+def show_stats(self):
+        """
+        This method should print out the battle statistics including each heroes kill/death ratio.
+        """
+        self.team_one.stats()
+        self.team_two.stats()
+
+
+if __name__ == "__main__":
+    # created a variable and assigned a boolean value
+    game_is_running = True
+
+    # Instantiate Game Arena - Object
+    arena = Arena()
+
+    # Build Teams
+    # calling a method
+    arena.build_team_one()
+    arena.build_team_two()
+
+    # while condition is true run this code
+    while game_is_running:
+        # teams battle
+        arena.team_battle()
+        # show kill/death ratio of each hero
+        arena.show_stats()
+        # After game ask user do they want to play again
+        play_again = validator(["Yes","yes","y", "Y", "No", "no", "n", "N"],"Play Again? Y or N: ")
+        if play_again ==  "No" or play_again ==  "no" or play_again ==  "n" or play_again == "N":
+            game_is_running = False
+
+        else:
+            recreate_teams = validator(["Yes","yes","y", "Y", "No", "no", "n", "N"],"Do you want new teams? (Y/N)")
+            if recreate_teams == "y" or "Y" or "Yes" or "yes":
+                arena.build_team_one()
+                arena.build_team_two()
+            else:
+                # Revive heroes to play again
+                # call function that resets all heroes to original value health
+                arena.team_one.revive_heroes()
+                arena.team_two.revive_heroes()
