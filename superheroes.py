@@ -1,7 +1,7 @@
 import random
 
 
-#I borrowed from Eric Botcher's code. 
+#I worked on this with Eric and Donny. 
 
 def validator(list_of_valid_entries, input_text):
     is_valid = False
@@ -187,3 +187,108 @@ class Team:
     def update_kills(self):
         for hero in self.heroes:
             health = 0
+
+
+class Armor:
+    def __init__(self, name, defense):
+        self.name = name
+        self.defense = defense
+
+    def defend(self):
+        return random.randint(0, self.defense)
+
+class Arena(Hero, Team):
+    def __init__(self):
+        """
+        Declare variables
+        """
+
+    def build_abilities_list(self):
+        # Return an ability and append ability
+        abilities = [
+            "Alien Attack",
+            "Science",
+            "Star Power",
+            "Immortality",
+            "Grandmas Cookies",
+            "Blinding Strength",
+            "Cute Kittens",
+            "Team Morale",
+            "Luck",
+            "Obsequious Destruction",
+            "The Kraken",
+            "The Fire of A Million Suns",
+            "Team Spirit",
+            "Canada"]
+        # Get one abilitiy out of the list
+        index = random.randint(0, len(abilities) - 1)
+        ability_name = abilities[index]
+        abil_att_Strength = random.randint(0, 600)
+        one_ability = Ability(ability_name, abil_att_Strength)
+        return one_ability
+        # hero.add_ability(one_ability) # <-- Doing this in create_hero
+
+    def build_armors_list(self):
+        armors = [
+            "Calculator",
+            "Laser Shield",
+            "Invisibility",
+            "SFPD Strike Force",
+            "Social Workers",
+            "Face Paint",
+            "Damaskus Shield",
+            "Bamboo Wall",
+            "Forced Projection",
+            "Thick Fog",
+            "Wall of Will",
+            "Wall of Walls",
+            "Obamacare",
+            "Thick Goo"]
+        # Get one armor out of the list
+        index = random.randint(0, len(armors) - 1)
+        armor_name = armors[index]
+        defense = random.randint(0, 600)
+        one_armor = Armor(armor_name, defense)
+        return one_armor
+
+    def create_hero(self):
+        heroes = [
+            "Athena",
+            "Jodie Foster",
+            "Wonder Woman",
+            "Christina Aguilera",
+            "Gamora",
+            "Supergirl",
+            "Batgirl",
+            "Carmen Sandiego",
+            "Okoye",
+            "America Chavez",
+            "Cat Woman",
+            "White Canary",
+            "Nakia",
+            "Mera",
+            "Iris West",
+            "Quake",
+            "Wasp",
+            "Storm",
+            "Black Widow",
+            "San Luis Obispo",
+            "Ted Kennedy",
+            "San Francisco",
+            "Bananas"]
+        index = random.randint(0, len(heroes) - 1)
+        hero_name = heroes[index]
+        hero = Hero(hero_name)
+        # Ask how many abilities does the hero have then build that many abilities
+        abilites_number = int(validator_num("How many abilities do you want your hero {} to have? ".format(hero.name)))
+        for _ in range(0, abilites_number):
+            ability = self.build_abilities_list()
+            hero.add_ability(ability)
+        print(hero.abilities)
+        # Ask How many armor
+        armors_number = int(validator_num("How many picecs of armor do you want your hero {} to have? ".format(hero.name)))
+        # However many armor the user wants the hero get the ability and add to the heros list of armor that many times
+        for _ in range(0, armors_number):
+            hero.add_armor(self.build_armors_list())
+        print(hero.armors)
+        return hero
