@@ -45,7 +45,7 @@ class Hero:
         self.kills = 0
 
     def add_ability(self, ability):
-        # Append ability to self.abilities
+        ''' Add ability to abilities list '''
         self.abilities.append(ability)
 
     def add_armor(self, armor):
@@ -81,6 +81,17 @@ class Hero:
 
     def add_kill(self, num_kills):
         self.kills += num_kills
+        
+    def is_alive(self):  
+        '''Return True or False depending on whether the hero is alive or not.
+        '''
+        # TODO: Check whether the hero is alive and return true or false
+        if self.current_health <= 0:
+            return False
+        else:
+            print("Your hero {} is dead!")
+            return True
+            
 
 class Ability:
     def __init__(self, name, attack_strength):
@@ -197,8 +208,10 @@ class Armor:
 class Arena(Hero, Team):
     def __init__(self):
         """
-        Declare variables
+        Instantiate variables
         """
+        self.team_one = None 
+        self.team_two = None 
 
     def build_abilities_list(self):
         # Return an ability and append ability
@@ -283,7 +296,7 @@ class Arena(Hero, Team):
             hero.add_ability(ability)
         print(hero.abilities)
         # Ask How many armor
-        armors_number = int(validator_num("How many picecs of armor do you want your hero {} to have? ".format(hero.name)))
+        armors_number = int(validator_num("How many pieces of armor do you want your hero {} to have? ".format(hero.name)))
         # However many armor the user wants the hero get the ability and add to the heros list of armor that many times
         for _ in range(0, armors_number):
             hero.add_armor(self.build_armors_list())
@@ -291,12 +304,12 @@ class Arena(Hero, Team):
         return hero
 
 
-def build_team_one(self):
+    def build_team_one(self):
     
-        print("Welcome to the Proving Ground:")
+        print("Welcome to the Pit of Despair:")
         print("   Where two teams enter, and only one team leaves")
 
-        team_name = input("Name your team Human! ")
+        team_name = input("Name your team, fleshy one! ")
 
         self.team_one = Team(team_name)
         choosing_Team_Size = True
@@ -311,11 +324,11 @@ def build_team_one(self):
 
         # print("This is Team 1 list of heroes: {}.".format(team_one.heroes))
 
-def build_team_two(self):
+    def build_team_two(self):
 
         print("\n")
         print("Build Team 2!")
-        team_name = input("Name your team Human! ")
+        team_name = input("Name your team, weakling! ")
 
         self.team_two = Team(team_name)
         choosing_Team2_Size = True
@@ -329,7 +342,7 @@ def build_team_two(self):
                 choosing_Team2_Size = False
 
 
-def team_battle(self):
+    def team_battle(self):
         """
         This method should continue to battle teams until one or both teams are dead.
         """
@@ -348,7 +361,7 @@ def team_battle(self):
                 else:
                     continue
 
-def show_stats(self):
+    def show_stats(self):
         """
         This method should print out the battle statistics including each heroes kill/death ratio.
         """
@@ -389,3 +402,4 @@ if __name__ == "__main__":
                 # call function that resets all heroes to original value health
                 arena.team_one.revive_heroes()
                 arena.team_two.revive_heroes()
+                
