@@ -39,6 +39,7 @@ class Hero:
         self.abilities = list()
         self.name = name
         self.armors = list()
+        self.weapons = list()
         self.start_health = health
         self.health = health
         self.deaths = 0
@@ -364,7 +365,7 @@ class Arena(Hero, Team):
         for _ in range(0, weapons_number):
             weapon = self.build_weapons_list()
             hero.add_ability(weapon)
-        print(hero.abilities)
+        print(hero.weapons)
         # Ask How many armor
         armors_number = int(validator_num("How many pieces of armor do you want your hero {} to have? ".format(hero.name)))
         # However many armor the user wants the hero get the ability and add to the heros list of armor that many times
