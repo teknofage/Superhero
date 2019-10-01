@@ -48,6 +48,14 @@ class Hero:
         ''' Add ability to abilities list '''
         self.abilities.append(ability)
 
+    def add_weapon(self, weapon):
+        '''Add weapon to self.abilities'''
+        # TODO: This method will append the weapon object passed in as an
+        # argument to self.abilities.
+        # This means that self.abilities will be a list of
+        # abilities and weapons.
+        self.abilities.append(weapon)
+
     def add_armor(self, armor):
         # Append armor
         self.armors.append(armor)
@@ -62,7 +70,6 @@ class Hero:
         return totalAttacks
 
     def defend(self):
-
         # Before anything, check or validate the hero's health
         totalDefense = 0
         # if self.health <= 0:
@@ -82,6 +89,11 @@ class Hero:
     def add_kill(self, num_kills):
         self.kills += num_kills
         
+    def add_deaths(self, num_deaths):
+        ''' Update deaths with num_deaths'''
+        # TODO: This method should add the number of deaths to self.deaths
+        self.deaths += num_deaths
+        
     def is_alive(self):  
         '''Return True or False depending on whether the hero is alive or not.
         '''
@@ -92,6 +104,29 @@ class Hero:
             print("Your hero {} is dead!")
             return True
             
+    def fight(self, opponent):
+        ''' Current Hero will take turns fighting the opponent hero passed in.
+        '''
+        if self.is_alive() == True and opponent.is_alive() == True:
+            while self.is_alive() == True and opponent.is_alive() == True:
+                opponent.take_damage(self.attack())
+                self.take_damage(opponent.attack())
+                #print(self.current_health)
+                #print(opponent.current_health)
+                if self.is_alive() == False and opponent.is_alive() == True:
+                    print('{} Wins!'.format(opponent.name))
+                    opponent.add_kill(1)
+                    self.add_death(1)
+                elif self.is_alive() == True and opponent.is_alive() == False:
+                    print('{} Wins!'.format(self.name))
+                    self.add_kill(1)
+                    opponent.add_death(1)
+                elif self.is_alive() == False and opponent.is_alive() == False:
+                    print("They both died...")
+                    self.add_kill(1)
+                    opponent.add_death(1)
+                    opponent.add_kill(1)
+                    self.add_death(1)
 
 class Ability:
     def __init__(self, name, attack_strength):
@@ -113,8 +148,8 @@ class Weapon(Ability):
 
 
 class Team:
-    def __init__(self, team_name):
-        self.name = team_name
+    def __init__(self, name):
+        self.name = name
         self.heroes = list()
         self.num_kills = 0
 
@@ -157,7 +192,6 @@ class Team:
         return(num_kills)
 
     def defend(self, damage_amt):
-
         totalTeamDefense = 0
         excessDamage = 0
         for hero in self.heroes:
@@ -172,7 +206,6 @@ class Team:
         return self.deal_damage(excessDamage)
 
     def deal_damage(self, damage):
-
         divisionOfDamage = damage // len(self.heroes)
         numHerosDiedInAttack = 0
         for hero in self.heroes:
@@ -186,12 +219,19 @@ class Team:
     def revive_heroes(self):
         for hero in self.heroes:
             hero.health = hero.start_health
+    
+    def alive_heroes(self):
+        alive_heroes = []
+        for hero in self.winner().team_members_alive():
+            alive_heroes.append(hero.name)
+        return alive_heroes
 
     def stats(self):
         print(self.name)
+        
         for hero in self.heroes:
             print("{} had a kill/death ratio of {}/{}".format(hero.name, hero.kills, hero.deaths))
-
+            
     def update_kills(self):
         for hero in self.heroes:
             health = 0
@@ -237,6 +277,31 @@ class Arena(Hero, Team):
         one_ability = Ability(ability_name, abil_att_Strength)
         return one_ability
         # hero.add_ability(one_ability) # <-- Doing this in create_hero
+        
+    def build_weapons_list(self):
+        # Return a weapon and append to weapons list
+        weapons = [
+            "Adamantium Claws",
+            "Staff of Oblivion",
+            "Strobe Light",
+            "Grapefruit Spoon",
+            "Pocketful of Angry Weasels",
+            "Nancy Pelosi",
+            "Acupuncture Needles",
+            "Kinetically Charged Playing Cards",
+            "Ball and Chain",
+            "Morningstar",
+            "Nunchucks",
+            "Surface to Air Missiles",
+            "Bowel Disruptor Ray Gun",
+            "Infuse Bystanders with Envy"]
+        # Get one weapon out of the list
+        index = random.randint(0, len(weapons) - 1)
+        weapon_name = weapons[index]
+        abil_att_Strength = random.randint(0, 600)
+        one_weapon = Weapon(weapon_name, abil_att_Strength)
+        return one_weapon
+        # hero.add_weapon(one_weapon) # <-- Doing this in create_hero
 
     def build_armors_list(self):
         armors = [
@@ -295,6 +360,11 @@ class Arena(Hero, Team):
             ability = self.build_abilities_list()
             hero.add_ability(ability)
         print(hero.abilities)
+        weapons_number = int(validator_num("How many weapons do you want your hero {} to have? ".format(hero.name)))
+        for _ in range(0, weapons_number):
+            weapon = self.build_weapons_list()
+            hero.add_ability(weapon)
+        print(hero.abilities)
         # Ask How many armor
         armors_number = int(validator_num("How many pieces of armor do you want your hero {} to have? ".format(hero.name)))
         # However many armor the user wants the hero get the ability and add to the heros list of armor that many times
@@ -310,7 +380,6 @@ class Arena(Hero, Team):
         print("   Where two teams enter, and only one team leaves")
 
         team_name = input("Name your team, fleshy one! ")
-
         self.team_one = Team(team_name)
         choosing_Team_Size = True
         while choosing_Team_Size:
