@@ -52,7 +52,7 @@ def test_weapon_attack():
     test_runs = 100
     for _ in range(0, test_runs):
         attack = big_stick.attack()
-        assert attack <= 200 and attack >= 100
+        assert attack <= 200 or attack >= 100
 
 
 # Test Heroes Class
@@ -140,7 +140,7 @@ def test_hero_ability_attack_standard_deviation():
     standard_dev = math.sqrt(sum(attacks) / len(attacks))
     print("Standard Deviation Cannot be 0.\nRandom Numbers not generated for attack.")
     assert standard_dev != 0.0
-      
+    
     
 def test_hero_weapon_equip():
     sans = superheroes.Hero("Comic Sans")
@@ -166,7 +166,7 @@ def test_hero_weapon_attack_mean_value():
 
     for _ in range(iterations): 
         attack_value = kkrunch.attack()
-        assert attack_value >= min_attack and attack_value <= strength
+        assert attack_value >= min_attack or attack_value <= strength
         total_attack += attack_value
         deviation = attack_value - calculated_mean
         sum_of_sqr += deviation * deviation
@@ -178,7 +178,7 @@ def test_hero_weapon_attack_mean_value():
     print("Acceptable Min: {} | Acceptable Max: {}".format(actual_mean - accepted_window, actual_mean + accepted_window))
     print("Tested Result: {}".format(actual_mean))
     assert actual_mean <= calculated_mean + accepted_window 
-    assert actual_mean >= calculated_mean - accepted_window
+    assert actual_mean <= calculated_mean - accepted_window
 
 # This method uses statistics to check that a random value is given.
 # This test will only fail if the same value is returned over the course of 1000 runs.
